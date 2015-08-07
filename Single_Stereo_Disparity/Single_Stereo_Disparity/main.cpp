@@ -12,11 +12,11 @@
 using namespace cv;
 using namespace std;
 
-void computeDisparity(Mat img1, Mat img2, Mat cameraMat1, Mat cameraMat2, Mat distCoeffs1, Mat distCoeffs2, Mat rotMat, Mat transVect, Mat disp)
+void computeDisparity(Mat img1, Mat img2, Mat cameraMat1, Mat cameraMat2, Mat distCoeffs1, Mat distCoeffs2, Mat rotMat, Mat transVect, Mat& disp, Rect& roiLeft, Mat& Q)
 {
     // RECTIFY
-    Mat R1, R2, P1, P2, Q;
-    Rect roiLeft, roiRight;
+    Mat R1, R2, P1, P2;
+    Rect roiRight;
     Size imageSize = img1.size();
     stereoRectify(cameraMat1, distCoeffs1,cameraMat2, distCoeffs2,
                   imageSize, rotMat, transVect, R1, R2, P1, P2, Q,
@@ -30,28 +30,9 @@ void computeDisparity(Mat img1, Mat img2, Mat cameraMat1, Mat cameraMat2, Mat di
     remap(img1, rimg1, rmap[0][0], rmap[0][1], INTER_LINEAR);
     remap(img2, rimg2, rmap[1][0], rmap[1][1], INTER_LINEAR);
     
-    // Display rectified images
-    namedWindow("Rectified Left Image", CV_WINDOW_AUTOSIZE); //create window for left image
-    imshow("Rectified Left Image", rimg1); //display the left image
-    namedWindow("Rectified Right Image", CV_WINDOW_AUTOSIZE); //create window for right image
-    imshow("Rectified Right Image", rimg2); //display the right image
-    
     // STEREO MATCHING
     Ptr<StereoSGBM> sgbm = StereoSGBM::create(0,112,7);
-    Mat disparityShow;
     sgbm->compute(rimg1, rimg2, disp);
-    
-    // Display disparity map
-    namedWindow("Disparity Map", CV_WINDOW_AUTOSIZE); //create window for disparity
-    disp.convertTo(disparityShow, CV_8U, 255/(96*16.));
-    imshow("Disparity Map",disparityShow);
-    
-    // CLOSE WINDOWS
-    waitKey(0); //wait infinite time for a keypress
-    
-    destroyWindow("Rectified Right Image");
-    destroyWindow("Rectified Left Image");
-    destroyWindow("Disparity Map");
     
 }
 
@@ -84,6 +65,50 @@ int main( int argc, const char** argv )
                              -0.001974616314531, -0.014316364326623, 0.999895565848193);
     Mat translationLeftRight = (Mat_<double>(3,1) << -1986.639953355410,  -7.743896974344,   7.026833161269);
     
-    Mat disparity;
-    //computeDisparity(imgLeft, imgRight, cameraMatLeft, cameraMatRight, distCoeffsLeft, distCoeffsRight, rotationLeftRight, translationLeftRight, disparity);
+    // COMPUTE DISPARITY
+    Mat disparity, Q;
+    Rect roi;
+    computeDisparity(imgLeft, imgRight, cameraMatLeft, cameraMatRight, distCoeffsLeft, distCoeffsRight, rotationLeftRight, translationLeftRight, disparity, roi, Q);
+    
+    // Save disparity as image and yml
+    Mat dispSave;
+    disparity.convertTo(dispSave, CV_8U, 255/(112*16.));
+    imwrite("/Users/mike/Desktop/StereoOpenCV/Single_Stereo_Disparity/flea35_2014-12-28-184907-0011.pgm", dispSave);
+    
+    FileStorage fs_disp("/Users/mike/Desktop/StereoOpenCV/Single_Stereo_Disparity/flea35_2014-12-28-184907-0011_disp.yml", FileStorage::WRITE);
+    fs_disp << "disparity" << disparity;
+    fs_disp.release();
+
+    // PROJECT TO 3D
+    Mat image3;
+    Mat xyz[3];
+    reprojectImageTo3D(disparity, image3, Q, true, CV_32F);
+    split(image3,xyz);
+    Mat z = xyz[2];
+    Mat zShow, dispShow;
+    z.convertTo(zShow, CV_8U, 255/(10000.));
+    disparity.convertTo(dispShow, CV_8U, 255/(112*16.));
+ 
+    FileStorage fs_xyz("/Users/mike/Desktop/StereoOpenCV/Single_Stereo_Disparity/flea35_2014-12-28-184907-0011_xyz.yml", FileStorage::WRITE);
+    fs_xyz << "z" << z;
+    fs_xyz.release();
+    
+    // Display images
+    namedWindow("Left Image", CV_WINDOW_AUTOSIZE); //create window for left image
+    imshow("Left Image", imgLeft); //display the left image
+    namedWindow("Right Image", CV_WINDOW_AUTOSIZE); //create window for right image
+    imshow("Right Image", imgRight); //display the right image
+    namedWindow("Disparity Map", CV_WINDOW_AUTOSIZE); //create window for disparity
+    imshow("Disparity Map", dispShow);
+    namedWindow("Z Map", CV_WINDOW_AUTOSIZE); //create window for disparity
+    imshow("Z Map",zShow);
+    
+    // CLOSE WINDOWS
+    waitKey(0); //wait infinite time for a keypress
+    destroyWindow("Right Image");
+    destroyWindow("Left Image");
+    destroyWindow("Disparity Map");
+    destroyWindow("Z Map");
+    
+    return 0;
 }
