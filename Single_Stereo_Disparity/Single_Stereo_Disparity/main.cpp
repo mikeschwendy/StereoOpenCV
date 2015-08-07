@@ -12,6 +12,49 @@
 using namespace cv;
 using namespace std;
 
+void computeDisparity(Mat img1, Mat img2, Mat cameraMat1, Mat cameraMat2, Mat distCoeffs1, Mat distCoeffs2, Mat rotMat, Mat transVect, Mat disp)
+{
+    // RECTIFY
+    Mat R1, R2, P1, P2, Q;
+    Rect roiLeft, roiRight;
+    Size imageSize = img1.size();
+    stereoRectify(cameraMat1, distCoeffs1,cameraMat2, distCoeffs2,
+                  imageSize, rotMat, transVect, R1, R2, P1, P2, Q,
+                  CALIB_ZERO_DISPARITY, 1, imageSize, &roiLeft, &roiRight);
+    
+    Mat rmap[2][2];
+    initUndistortRectifyMap(cameraMat1, distCoeffs1, R1, P1, imageSize, CV_16SC2, rmap[0][0], rmap[0][1]);
+    initUndistortRectifyMap(cameraMat2, distCoeffs2, R2, P2, imageSize, CV_16SC2, rmap[1][0], rmap[1][1]);
+    Mat rimg1, rimg2;
+    
+    remap(img1, rimg1, rmap[0][0], rmap[0][1], INTER_LINEAR);
+    remap(img2, rimg2, rmap[1][0], rmap[1][1], INTER_LINEAR);
+    
+    // Display rectified images
+    namedWindow("Rectified Left Image", CV_WINDOW_AUTOSIZE); //create window for left image
+    imshow("Rectified Left Image", rimg1); //display the left image
+    namedWindow("Rectified Right Image", CV_WINDOW_AUTOSIZE); //create window for right image
+    imshow("Rectified Right Image", rimg2); //display the right image
+    
+    // STEREO MATCHING
+    Ptr<StereoSGBM> sgbm = StereoSGBM::create(0,112,7);
+    Mat disparityShow;
+    sgbm->compute(rimg1, rimg2, disp);
+    
+    // Display disparity map
+    namedWindow("Disparity Map", CV_WINDOW_AUTOSIZE); //create window for disparity
+    disp.convertTo(disparityShow, CV_8U, 255/(96*16.));
+    imshow("Disparity Map",disparityShow);
+    
+    // CLOSE WINDOWS
+    waitKey(0); //wait infinite time for a keypress
+    
+    destroyWindow("Rectified Right Image");
+    destroyWindow("Rectified Left Image");
+    destroyWindow("Disparity Map");
+    
+}
+
 int main( int argc, const char** argv )
 {
     
@@ -25,11 +68,7 @@ int main( int argc, const char** argv )
         cout << "Error : One or both images couldn't load!" << endl;
         return -1;
     }
-
-    namedWindow("Raw Left Image", CV_WINDOW_AUTOSIZE); //create window for left image
-    imshow("Raw Left Image", imgLeft); //display the left image
-    namedWindow("Raw Right Image", CV_WINDOW_AUTOSIZE); //create window for right image
-    imshow("Raw Right Image", imgRight); //display the right image
+    
     
     // MANUAL INPUT CAMERA PARAMETERS
     Mat cameraMatLeft = (Mat_<double>(3,3) << 1923.188639424867, 0, 522.300865840401,
@@ -45,55 +84,6 @@ int main( int argc, const char** argv )
                              -0.001974616314531, -0.014316364326623, 0.999895565848193);
     Mat translationLeftRight = (Mat_<double>(3,1) << -1986.639953355410,  -7.743896974344,   7.026833161269);
     
-    // UNDISTORT
-    Mat imgLeftUndistort, imgRightUndistort;
-    undistort(imgLeft, imgLeftUndistort,cameraMatLeft, distCoeffsLeft);
-    undistort(imgRight, imgRightUndistort,cameraMatRight, distCoeffsRight);
-    
-    namedWindow("Undistorted Left Image", CV_WINDOW_AUTOSIZE); //create window for left image
-    imshow("Undistorted Left Image", imgLeftUndistort); //display the left image
-    namedWindow("Undistorted Right Image", CV_WINDOW_AUTOSIZE); //create window for right image
-    imshow("Undistorted Right Image", imgRightUndistort); //display the right image
-    
-    // RECTIFY
-    Mat R1, R2, P1, P2, Q;
-    Rect roiLeft, roiRight;
-    Size imageSize = imgLeftUndistort.size();
-    stereoRectify(cameraMatLeft, distCoeffsLeft,
-                  cameraMatRight, distCoeffsRight,
-                  imageSize, rotationLeftRight, translationLeftRight, R1, R2, P1, P2, Q,
-                  CALIB_ZERO_DISPARITY, 1, imageSize, &roiLeft, &roiRight);
-
-    Mat rmap[2][2];
-    initUndistortRectifyMap(cameraMatLeft, distCoeffsLeft, R1, P1, imageSize, CV_16SC2, rmap[0][0], rmap[0][1]);
-    initUndistortRectifyMap(cameraMatRight, distCoeffsRight, R2, P2, imageSize, CV_16SC2, rmap[1][0], rmap[1][1]);
-    Mat imgLeftRectified, imgRightRectified;
-    
-    remap(imgLeft, imgLeftRectified, rmap[0][0], rmap[0][1], INTER_LINEAR);
-    remap(imgRight, imgRightRectified, rmap[1][0], rmap[1][1], INTER_LINEAR);
-    
-    namedWindow("Rectified Left Image", CV_WINDOW_AUTOSIZE); //create window for left image
-    imshow("Rectified Left Image", imgLeftRectified); //display the left image
-    namedWindow("Rectified Right Image", CV_WINDOW_AUTOSIZE); //create window for right image
-    imshow("Rectified Right Image", imgRightRectified); //display the right image
-    
-    // STEREO MATCHING
-    Ptr<StereoSGBM> sgbm = StereoSGBM::create(0,112,7);
-    Mat disparity, disparityShow;
-    sgbm->compute(imgLeftRectified, imgRightRectified, disparity);
-    namedWindow("Disparity Map", CV_WINDOW_AUTOSIZE); //create window for disparity
-    disparity.convertTo(disparityShow, CV_8U, 255/(96*16.));
-    imshow("Disparity Map",disparityShow);
-    
-    // CLOSE WINDOWS
-    waitKey(0); //wait infinite time for a keypress
-    
-    destroyWindow("Raw Left Image"); //destroy the windows
-    destroyWindow("Raw Right Image");
-    destroyWindow("Undistorted Right Image");
-    destroyWindow("Undistorted Left Image");
-    destroyWindow("Rectified Right Image");
-    destroyWindow("Rectified Left Image");
-    destroyWindow("Disparity Map");
-    return 0;
+    Mat disparity;
+    computeDisparity(imgLeft, imgRight, cameraMatLeft, cameraMatRight, distCoeffsLeft, distCoeffsRight, rotationLeftRight, translationLeftRight, disparity);
 }
