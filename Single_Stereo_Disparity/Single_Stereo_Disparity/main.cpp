@@ -85,5 +85,5 @@ int main( int argc, const char** argv )
     Mat translationLeftRight = (Mat_<double>(3,1) << -1986.639953355410,  -7.743896974344,   7.026833161269);
     
     Mat disparity;
-    computeDisparity(imgLeft, imgRight, cameraMatLeft, cameraMatRight, distCoeffsLeft, distCoeffsRight, rotationLeftRight, translationLeftRight, disparity);
+    //computeDisparity(imgLeft, imgRight, cameraMatLeft, cameraMatRight, distCoeffsLeft, distCoeffsRight, rotationLeftRight, translationLeftRight, disparity);
 }
