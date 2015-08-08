@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>2D21BBF6-7D6A-4274-B737-53F66A6CDC3C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Single_Stereo_Disparity</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>091A32D3C362B4BBF44241771EF0E851BAA69E8E</key>
+		<string>https://github.com/mikeschwendy/StereoOpenCV.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Single_Stereo_Disparity/Single_Stereo_Disparity.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>091A32D3C362B4BBF44241771EF0E851BAA69E8E</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/mikeschwendy/StereoOpenCV.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>091A32D3C362B4BBF44241771EF0E851BAA69E8E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>091A32D3C362B4BBF44241771EF0E851BAA69E8E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>StereoOpenCV</string>
+		</dict>
+	</array>
+</dict>
+</plist>

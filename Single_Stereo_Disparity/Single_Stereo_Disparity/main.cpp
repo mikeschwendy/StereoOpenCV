@@ -89,7 +89,7 @@ int main( int argc, const char** argv )
     z.convertTo(zShow, CV_8U, 255/(10000.));
     disparity.convertTo(dispShow, CV_8U, 255/(112*16.));
  
-    FileStorage fs_xyz("/Users/mike/Desktop/StereoOpenCV/Single_Stereo_Disparity/flea35_2014-12-28-184907-0011_xyz.yml", FileStorage::WRITE);
+    FileStorage fs_xyz("/Users/mike/Desktop/StereoOpenCV/Single_Stereo_Disparity/flea35_2014-12-28-184907-0011_xyz.xml", FileStorage::WRITE);
     fs_xyz << "z" << z;
     fs_xyz.release();
     
