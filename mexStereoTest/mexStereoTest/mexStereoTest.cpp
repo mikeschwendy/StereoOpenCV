@@ -41,7 +41,7 @@ void computeDisparity(Mat img1, Mat img2, Mat cameraMat1, Mat cameraMat2, Mat di
     // STEREO MATCHING
     //Ptr<StereoSGBM> sgbm = StereoSGBM::create(0,112,7);
     //sgbm->compute(rimg1, rimg2, disp);
-    StereoSGBM sgbm(0,112,7);
+    StereoSGBM sgbm(0,144,15);
     sgbm.operator()(rimg1,rimg2,disp);
     
 }
@@ -68,11 +68,22 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     Mat disparity, Q;
     Rect roi;
     computeDisparity(*imgLeft, *imgRight, *cameraMatLeft, *cameraMatRight, *distCoeffsLeft, *distCoeffsRight, *rotationMat, *translationMat, disparity, roi, Q);
+    // Mat disp;
+    // disparity.convertTo(disp,CV_32FC1);
     
-    
-    Mat disp;
-    disparity.convertTo(disp,'CV_32F');
+    // PROJECT TO 3D
+    Mat image3;
+    // Mat xyz[3];
+    reprojectImageTo3D(disparity, image3, Q);
+    // split(image3,xyz);
+    // Mat x = xyz[0];
+    // Mat y = xyz[1];
+    // Mat z = xyz[2];
     
     // Put the data back into the output MATLAB array
-    plhs[0] = ocvMxArrayFromMat_double(disp);
+    plhs[0] = ocvMxArrayFromMat_int16(disparity);
+    //plhs[1] = ocvMxArrayFromMat_single(x);
+    //plhs[2] = ocvMxArrayFromMat_single(y);
+    //plhs[3] = ocvMxArrayFromMat_single(z);
+    plhs[1] = ocvMxArrayFromMat_single(image3);
 }
