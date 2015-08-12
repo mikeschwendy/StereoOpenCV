@@ -10,6 +10,16 @@
 		27D69D341B76A1520090B455 /* mexStereoTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27D69D331B76A1520090B455 /* mexStereoTest.cpp */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		27878E901B7A70C3005E05EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 27878E8C1B7A70C2005E05EC /* CameraCalibration.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 27878E821B7A70C2005E05EC;
+			remoteInfo = CameraCalibration;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		27D69D2E1B76A1520090B455 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -23,6 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		27878E8C1B7A70C2005E05EC /* CameraCalibration.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CameraCalibration.xcodeproj; path = ../CameraCalibration/CameraCalibration.xcodeproj; sourceTree = "<group>"; };
 		27D69D301B76A1520090B455 /* mexStereoTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mexStereoTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27D69D331B76A1520090B455 /* mexStereoTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mexStereoTest.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -38,11 +49,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		27878E8D1B7A70C2005E05EC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				27878E911B7A70C3005E05EC /* CameraCalibration */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		27D69D271B76A1520090B455 = {
 			isa = PBXGroup;
 			children = (
 				27D69D321B76A1520090B455 /* mexStereoTest */,
 				27D69D311B76A1520090B455 /* Products */,
+				27878E8C1B7A70C2005E05EC /* CameraCalibration.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,12 +126,28 @@
 			mainGroup = 27D69D271B76A1520090B455;
 			productRefGroup = 27D69D311B76A1520090B455 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 27878E8D1B7A70C2005E05EC /* Products */;
+					ProjectRef = 27878E8C1B7A70C2005E05EC /* CameraCalibration.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				27D69D2F1B76A1520090B455 /* mexStereoTest */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		27878E911B7A70C3005E05EC /* CameraCalibration */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = CameraCalibration;
+			remoteRef = 27878E901B7A70C3005E05EC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		27D69D2C1B76A1520090B455 /* Sources */ = {
@@ -235,6 +271,7 @@
 				27D69D391B76A1520090B455 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

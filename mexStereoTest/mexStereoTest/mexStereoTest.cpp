@@ -68,9 +68,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     Mat disparity, Q;
     Rect roi;
     computeDisparity(*imgLeft, *imgRight, *cameraMatLeft, *cameraMatRight, *distCoeffsLeft, *distCoeffsRight, *rotationMat, *translationMat, disparity, roi, Q);
-    // Mat disp;
-    // disparity.convertTo(disp,CV_32FC1);
-    
+
     // PROJECT TO 3D
     Mat image3;
     // Mat xyz[3];
@@ -82,8 +80,5 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     
     // Put the data back into the output MATLAB array
     plhs[0] = ocvMxArrayFromMat_int16(disparity);
-    //plhs[1] = ocvMxArrayFromMat_single(x);
-    //plhs[2] = ocvMxArrayFromMat_single(y);
-    //plhs[3] = ocvMxArrayFromMat_single(z);
     plhs[1] = ocvMxArrayFromMat_single(image3);
 }
