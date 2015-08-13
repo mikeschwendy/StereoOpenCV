@@ -17,13 +17,19 @@ using namespace boost::filesystem;
 
 int main() {
     // Set plot options
-    bool plotUndistort = true;
-    bool plotCheckerboard = true;
+    bool plotUndistort = false;
+    bool plotCheckerboard = false;
     if (plotCheckerboard || plotUndistort)
         namedWindow("Image", CV_WINDOW_AUTOSIZE); //create window for left image
     
     // Set path
     path p = "/Volumes/Data/PAPA/TGTcruise2015/StereoSystem/15Jan2015/1740UTC_flea35";
+    //path p = "/Volumes/Data/PAPA/TGTcruise2015/StereoSystem/15Jan2015/1804UTC_flea34";
+    //path p = "/Volumes/Data/PAPA/TGTcruise2015/StereoSystem/15Jan2015/1750UTC_flea65";
+    //path p = "/Volumes/Data/PAPA/TGTcruise2015/StereoSystem/15Jan2015/1834UTC_flea18";
+    //path p = "/Volumes/Data/PAPA/TGTcruise2015/StereoSystem/15Jan2015/1811UTC_flea21";
+    //path p = "/Volumes/Data/PAPA/TGTcruise2015/StereoSystem/15Jan2015/1825UTC_flea83";
+    
     vector<path> imageVec;
     copy(directory_iterator(p),directory_iterator(),back_inserter(imageVec));
     
@@ -73,7 +79,7 @@ int main() {
     Mat distCoeffs;
     vector<Mat> rvecs;
     vector<Mat> tvecs;
-    calibrateCamera(object_points, image_points, image.size(), intrinsic, distCoeffs, rvecs, tvecs);
+    calibrateCamera(object_points, image_points, image.size(), intrinsic, distCoeffs, rvecs, tvecs, CV_CALIB_ZERO_TANGENT_DIST, TermCriteria(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 1000, DBL_EPSILON));
     
     // Check undistort
     iframe = 0;

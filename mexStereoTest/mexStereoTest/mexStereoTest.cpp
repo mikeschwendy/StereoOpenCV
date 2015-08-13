@@ -72,7 +72,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     // PROJECT TO 3D
     Mat image3;
     // Mat xyz[3];
-    reprojectImageTo3D(disparity, image3, Q);
+    reprojectImageTo3D(disparity/16., image3, Q);
     // split(image3,xyz);
     // Mat x = xyz[0];
     // Mat y = xyz[1];
