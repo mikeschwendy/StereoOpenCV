@@ -7,7 +7,6 @@
 //
 
 #include "opencvmex.hpp"
-//#include <opencv2/opencv.hpp>
 
 #define _DO_NOT_EXPORT
 #if defined(_DO_NOT_EXPORT)
@@ -17,8 +16,6 @@
 #endif
 
 using namespace cv;
-//using namespace std;
-
 
 void computeDisparity(Mat img1, Mat img2, Mat cameraMat1, Mat cameraMat2, Mat distCoeffs1, Mat distCoeffs2, Mat rotMat, Mat transVect, Mat& disp, Rect& roiLeft, Mat& Q)
 {
@@ -68,16 +65,11 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     Mat disparity, Q;
     Rect roi;
     computeDisparity(*imgLeft, *imgRight, *cameraMatLeft, *cameraMatRight, *distCoeffsLeft, *distCoeffsRight, *rotationMat, *translationMat, disparity, roi, Q);
-
+    
     // PROJECT TO 3D
     Mat image3;
-    // Mat xyz[3];
     reprojectImageTo3D(disparity/16., image3, Q);
-    // split(image3,xyz);
-    // Mat x = xyz[0];
-    // Mat y = xyz[1];
-    // Mat z = xyz[2];
-    
+
     // Put the data back into the output MATLAB array
     plhs[0] = ocvMxArrayFromMat_int16(disparity);
     plhs[1] = ocvMxArrayFromMat_single(image3);

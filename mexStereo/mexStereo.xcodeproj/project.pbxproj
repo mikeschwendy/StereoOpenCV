@@ -7,21 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		27D69D341B76A1520090B455 /* mexStereoTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27D69D331B76A1520090B455 /* mexStereoTest.cpp */; };
+		274433F51B7E6DA1001E76DA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 274433F41B7E6DA1001E76DA /* main.cpp */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		27878E901B7A70C3005E05EC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 27878E8C1B7A70C2005E05EC /* CameraCalibration.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 27878E821B7A70C2005E05EC;
-			remoteInfo = CameraCalibration;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
-		27D69D2E1B76A1520090B455 /* CopyFiles */ = {
+		274433EF1B7E6DA0001E76DA /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -33,13 +23,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		27878E8C1B7A70C2005E05EC /* CameraCalibration.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CameraCalibration.xcodeproj; path = ../CameraCalibration/CameraCalibration.xcodeproj; sourceTree = "<group>"; };
-		27D69D301B76A1520090B455 /* mexStereoTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mexStereoTest; sourceTree = BUILT_PRODUCTS_DIR; };
-		27D69D331B76A1520090B455 /* mexStereoTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mexStereoTest.cpp; sourceTree = "<group>"; };
+		274433F11B7E6DA1001E76DA /* mexStereo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mexStereo; sourceTree = BUILT_PRODUCTS_DIR; };
+		274433F41B7E6DA1001E76DA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		27D69D2D1B76A1520090B455 /* Frameworks */ = {
+		274433EE1B7E6DA0001E76DA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -49,119 +38,94 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		27878E8D1B7A70C2005E05EC /* Products */ = {
+		274433E81B7E6DA0001E76DA = {
 			isa = PBXGroup;
 			children = (
-				27878E911B7A70C3005E05EC /* CameraCalibration */,
+				274433F31B7E6DA1001E76DA /* mexStereo */,
+				274433F21B7E6DA1001E76DA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		274433F21B7E6DA1001E76DA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				274433F11B7E6DA1001E76DA /* mexStereo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		27D69D271B76A1520090B455 = {
+		274433F31B7E6DA1001E76DA /* mexStereo */ = {
 			isa = PBXGroup;
 			children = (
-				27D69D321B76A1520090B455 /* mexStereoTest */,
-				27D69D311B76A1520090B455 /* Products */,
-				27878E8C1B7A70C2005E05EC /* CameraCalibration.xcodeproj */,
+				274433F41B7E6DA1001E76DA /* main.cpp */,
 			);
-			sourceTree = "<group>";
-		};
-		27D69D311B76A1520090B455 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				27D69D301B76A1520090B455 /* mexStereoTest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		27D69D321B76A1520090B455 /* mexStereoTest */ = {
-			isa = PBXGroup;
-			children = (
-				27D69D331B76A1520090B455 /* mexStereoTest.cpp */,
-			);
-			path = mexStereoTest;
+			path = mexStereo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		27D69D2F1B76A1520090B455 /* mexStereoTest */ = {
+		274433F01B7E6DA0001E76DA /* mexStereo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 27D69D371B76A1520090B455 /* Build configuration list for PBXNativeTarget "mexStereoTest" */;
+			buildConfigurationList = 274433F81B7E6DA1001E76DA /* Build configuration list for PBXNativeTarget "mexStereo" */;
 			buildPhases = (
-				27D69D2C1B76A1520090B455 /* Sources */,
-				27D69D2D1B76A1520090B455 /* Frameworks */,
-				27D69D2E1B76A1520090B455 /* CopyFiles */,
+				274433ED1B7E6DA0001E76DA /* Sources */,
+				274433EE1B7E6DA0001E76DA /* Frameworks */,
+				274433EF1B7E6DA0001E76DA /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = mexStereoTest;
-			productName = mexStereoTest;
-			productReference = 27D69D301B76A1520090B455 /* mexStereoTest */;
+			name = mexStereo;
+			productName = mexStereo;
+			productReference = 274433F11B7E6DA1001E76DA /* mexStereo */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		27D69D281B76A1520090B455 /* Project object */ = {
+		274433E91B7E6DA0001E76DA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = MSS;
 				TargetAttributes = {
-					27D69D2F1B76A1520090B455 = {
+					274433F01B7E6DA0001E76DA = {
 						CreatedOnToolsVersion = 6.4;
 					};
 				};
 			};
-			buildConfigurationList = 27D69D2B1B76A1520090B455 /* Build configuration list for PBXProject "mexStereoTest" */;
+			buildConfigurationList = 274433EC1B7E6DA0001E76DA /* Build configuration list for PBXProject "mexStereo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 27D69D271B76A1520090B455;
-			productRefGroup = 27D69D311B76A1520090B455 /* Products */;
+			mainGroup = 274433E81B7E6DA0001E76DA;
+			productRefGroup = 274433F21B7E6DA1001E76DA /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 27878E8D1B7A70C2005E05EC /* Products */;
-					ProjectRef = 27878E8C1B7A70C2005E05EC /* CameraCalibration.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
-				27D69D2F1B76A1520090B455 /* mexStereoTest */,
+				274433F01B7E6DA0001E76DA /* mexStereo */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		27878E911B7A70C3005E05EC /* CameraCalibration */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = CameraCalibration;
-			remoteRef = 27878E901B7A70C3005E05EC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
 /* Begin PBXSourcesBuildPhase section */
-		27D69D2C1B76A1520090B455 /* Sources */ = {
+		274433ED1B7E6DA0001E76DA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27D69D341B76A1520090B455 /* mexStereoTest.cpp in Sources */,
+				274433F51B7E6DA1001E76DA /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		27D69D351B76A1520090B455 /* Debug */ = {
+		274433F61B7E6DA1001E76DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -203,7 +167,7 @@
 			};
 			name = Debug;
 		};
-		27D69D361B76A1520090B455 /* Release */ = {
+		274433F71B7E6DA1001E76DA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -238,14 +202,14 @@
 			};
 			name = Release;
 		};
-		27D69D381B76A1520090B455 /* Debug */ = {
+		274433F91B7E6DA1001E76DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		27D69D391B76A1520090B455 /* Release */ = {
+		274433FA1B7E6DA1001E76DA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -255,25 +219,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		27D69D2B1B76A1520090B455 /* Build configuration list for PBXProject "mexStereoTest" */ = {
+		274433EC1B7E6DA0001E76DA /* Build configuration list for PBXProject "mexStereo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				27D69D351B76A1520090B455 /* Debug */,
-				27D69D361B76A1520090B455 /* Release */,
+				274433F61B7E6DA1001E76DA /* Debug */,
+				274433F71B7E6DA1001E76DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		27D69D371B76A1520090B455 /* Build configuration list for PBXNativeTarget "mexStereoTest" */ = {
+		274433F81B7E6DA1001E76DA /* Build configuration list for PBXNativeTarget "mexStereo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				27D69D381B76A1520090B455 /* Debug */,
-				27D69D391B76A1520090B455 /* Release */,
+				274433F91B7E6DA1001E76DA /* Debug */,
+				274433FA1B7E6DA1001E76DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 27D69D281B76A1520090B455 /* Project object */;
+	rootObject = 274433E91B7E6DA0001E76DA /* Project object */;
 }

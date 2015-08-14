@@ -17,7 +17,7 @@ using namespace boost::filesystem;
 
 int main() {
     // Set plot options
-    bool plotUndistort = false;
+    bool plotUndistort = true;
     bool plotCheckerboard = false;
     if (plotCheckerboard || plotUndistort)
         namedWindow("Image", CV_WINDOW_AUTOSIZE); //create window for left image

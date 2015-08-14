@@ -366,14 +366,14 @@
 		27878F0D1B7A72C7005E05EC /* libopencv_xphoto.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_xphoto.3.0.0.dylib; path = /usr/local/lib/libopencv_xphoto.3.0.0.dylib; sourceTree = "<absolute>"; };
 		27878F0E1B7A72C7005E05EC /* libopencv_xphoto.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_xphoto.3.0.0.dylib; path = /usr/local/lib/libopencv_xphoto.3.0.0.dylib; sourceTree = "<absolute>"; };
 		27878F0F1B7A72C7005E05EC /* libopencv_xphoto.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_xphoto.3.0.0.dylib; path = /usr/local/lib/libopencv_xphoto.3.0.0.dylib; sourceTree = "<absolute>"; };
-		27878F7C1B7A85D5005E05EC /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = ../../../../../usr/local/lib/libboost_filesystem.a; sourceTree = "<group>"; };
-		27878F7D1B7A85D5005E05EC /* libboost_filesystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_filesystem.dylib; path = ../../../../../usr/local/lib/libboost_filesystem.dylib; sourceTree = "<group>"; };
-		27878F801B7A8604005E05EC /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../../../../../usr/local/lib/libboost_system.a; sourceTree = "<group>"; };
-		27878F811B7A8604005E05EC /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = ../../../../../usr/local/lib/libboost_system.dylib; sourceTree = "<group>"; };
+		27878F7C1B7A85D5005E05EC /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = /usr/local/lib/libboost_filesystem.a; sourceTree = "<absolute>"; };
+		27878F7D1B7A85D5005E05EC /* libboost_filesystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_filesystem.dylib; path = /usr/local/lib/libboost_filesystem.dylib; sourceTree = "<absolute>"; };
+		27878F801B7A8604005E05EC /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = /usr/local/lib/libboost_system.a; sourceTree = "<absolute>"; };
+		27878F811B7A8604005E05EC /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = /usr/local/lib/libboost_system.dylib; sourceTree = "<absolute>"; };
 		27878F881B7ABBD9005E05EC /* StereoCalibration */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = StereoCalibration; sourceTree = BUILT_PRODUCTS_DIR; };
 		27878F8A1B7ABBD9005E05EC /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		27878FFE1B7C14DF005E05EC /* libboost_regex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_regex.a; path = ../../../../../usr/local/lib/libboost_regex.a; sourceTree = "<group>"; };
-		27878FFF1B7C14DF005E05EC /* libboost_regex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_regex.dylib; path = ../../../../../usr/local/lib/libboost_regex.dylib; sourceTree = "<group>"; };
+		27878FFE1B7C14DF005E05EC /* libboost_regex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_regex.a; path = /usr/local/lib/libboost_regex.a; sourceTree = "<absolute>"; };
+		27878FFF1B7C14DF005E05EC /* libboost_regex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_regex.dylib; path = /usr/local/lib/libboost_regex.dylib; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -621,12 +621,8 @@
 		27878E921B7A7158005E05EC = {
 			isa = PBXGroup;
 			children = (
-				27878FFE1B7C14DF005E05EC /* libboost_regex.a */,
-				27878FFF1B7C14DF005E05EC /* libboost_regex.dylib */,
-				27878F801B7A8604005E05EC /* libboost_system.a */,
-				27878F811B7A8604005E05EC /* libboost_system.dylib */,
-				27878F7C1B7A85D5005E05EC /* libboost_filesystem.a */,
-				27878F7D1B7A85D5005E05EC /* libboost_filesystem.dylib */,
+				27C3D2E11B7E68C30010EA43 /* Boost Libraries */,
+				27878F7B1B7A72D5005E05EC /* OpenCV Libraries */,
 				27878E9D1B7A7158005E05EC /* CameraCalibration */,
 				27878F891B7ABBD9005E05EC /* StereoCalibration */,
 				27878E9C1B7A7158005E05EC /* Products */,
@@ -645,7 +641,6 @@
 		27878E9D1B7A7158005E05EC /* CameraCalibration */ = {
 			isa = PBXGroup;
 			children = (
-				27878F7B1B7A72D5005E05EC /* OpenCV Libraries */,
 				27878E9E1B7A7159005E05EC /* main.cpp */,
 			);
 			path = CameraCalibration;
@@ -763,7 +758,6 @@
 				27878F0F1B7A72C7005E05EC /* libopencv_xphoto.3.0.0.dylib */,
 			);
 			name = "OpenCV Libraries";
-			path = ..;
 			sourceTree = "<group>";
 		};
 		27878F891B7ABBD9005E05EC /* StereoCalibration */ = {
@@ -772,6 +766,19 @@
 				27878F8A1B7ABBD9005E05EC /* main.cpp */,
 			);
 			path = StereoCalibration;
+			sourceTree = "<group>";
+		};
+		27C3D2E11B7E68C30010EA43 /* Boost Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				27878FFE1B7C14DF005E05EC /* libboost_regex.a */,
+				27878FFF1B7C14DF005E05EC /* libboost_regex.dylib */,
+				27878F801B7A8604005E05EC /* libboost_system.a */,
+				27878F811B7A8604005E05EC /* libboost_system.dylib */,
+				27878F7C1B7A85D5005E05EC /* libboost_filesystem.a */,
+				27878F7D1B7A85D5005E05EC /* libboost_filesystem.dylib */,
+			);
+			name = "Boost Libraries";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1018,6 +1025,7 @@
 				27878EA41B7A7159005E05EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		27878F8C1B7ABBD9005E05EC /* Build configuration list for PBXNativeTarget "StereoCalibration" */ = {
 			isa = XCConfigurationList;
@@ -1026,6 +1034,7 @@
 				27878F8E1B7ABBD9005E05EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

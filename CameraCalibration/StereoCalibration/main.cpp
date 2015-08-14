@@ -23,10 +23,10 @@ struct sort_function
     {
         string aStr = a.filename().string();
         string bStr = b.filename().string();
-        //size_t numStartA = aStr.find_last_of("-");
-        //size_t numStartB = bStr.find_last_of("-");
-        size_t numStartA = aStr.find_last_of("_");
-        size_t numStartB = bStr.find_last_of("_");
+        size_t numStartA = aStr.find_last_of("-");
+        size_t numStartB = bStr.find_last_of("-");
+        //size_t numStartA = aStr.find_last_of("_");
+        //size_t numStartB = bStr.find_last_of("_");
         long frameNumA = stol(aStr.substr(numStartA+1),nullptr);
         long frameNumB = stol(bStr.substr(numStartB+1),nullptr);
         return frameNumA < frameNumB;
@@ -36,13 +36,20 @@ struct sort_function
 
 int main() {
     // Set paths
+    
+    //path p1 = "/Volumes/Data/PAPA/TGTcruise2015/StereoSystem/15Jan2015/1834UTC_flea18";
+    //path p2 = "/Volumes/Data/PAPA/TGTcruise2015/StereoSystem/15Jan2015/1811UTC_flea21";
+    //path p = "/Volumes/Data/PAPA/TGTcruise2015/StereoSystem/14Jan2015/1751UTC_stbdcalibration";
+    //int delay = 13;
+    
     path p1 = "/Volumes/Data/PAPA/TGTcruise2015/StereoSystem/15Jan2015/1804UTC_flea34";
     path p2 = "/Volumes/Data/PAPA/TGTcruise2015/StereoSystem/15Jan2015/1740UTC_flea35";
-    //path p = "/Volumes/Data/PAPA/TGTcruise2015/StereoSystem/23Dec2014/1745UTC_PortCalibration";
-    //int delay = 11;
-    path p = "/Volumes/Data/PAPA/TGTcruise2015/MikeScratchTGT/TGT_StereoVideo/CalibrationDataAndResults/TGTCalibration/23Dec2014_Port_1745UTC";
-    int delay = 0;
-    //path p = "/Volumes/Data/PAPA/TGTcruise2015/StereoSystem/28Dec2014/1605UTC";
+    path p = "/Volumes/Data/PAPA/TGTcruise2015/StereoSystem/23Dec2014/1745UTC_PortCalibration";
+    int delay = 11;
+    
+    //path p = "/Volumes/Data/PAPA/TGTcruise2015/MikeScratchTGT/TGT_StereoVideo/CalibrationDataAndResults/TGTCalibration/23Dec2014_Port_1745UTC";
+    //int delay = 0;
+
     // Set plot options
     bool plotCheckerboard = false;
     bool plotRectified = true;
@@ -78,11 +85,11 @@ int main() {
     copy(directory_iterator(p),directory_iterator(),back_inserter(allFiles));
     for (vector<path>::const_iterator it (allFiles.begin()); it != allFiles.end(); ++it) {
         extStr = (*it).extension().string();
-        fileStr = (*it).filename().string().substr(0,4);
-//        fileStr = (*it).filename().string().substr(0,6);
-        if (extStr == ".pgm" && fileStr == "left")
+//        fileStr = (*it).filename().string().substr(0,4);
+        fileStr = (*it).filename().string().substr(0,6);
+        if (extStr == ".pgm" && fileStr == "flea34")
             imageVec1.push_back(*it);
-        else if (extStr == ".pgm" && fileStr == "righ")
+        else if (extStr == ".pgm" && fileStr == "flea35")
             imageVec2.push_back(*it);
     }
     sort(imageVec1.begin(),imageVec1.end(),sort_function());
@@ -103,7 +110,7 @@ int main() {
     // Detect checkerboard
     Mat image1, image2;
     string filename1, filename2;
-    int skip = 1;
+    int skip = 100;
     int iframe = 0;
     vector<path>::const_iterator it1 = imageVec1.begin();
     vector<path>::const_iterator it2 = imageVec2.begin();
@@ -118,13 +125,11 @@ int main() {
             filename2 = it2->string();
             image2 = imread(filename2,CV_LOAD_IMAGE_GRAYSCALE);
             
-            bool found1 = findChessboardCorners(image1, board_sz, corners1, CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FILTER_QUADS);
-            bool found2 = findChessboardCorners(image2, board_sz, corners2, CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FILTER_QUADS);
-            
+            bool found1 = findChessboardCorners(image1, board_sz, corners1, CV_CALIB_CB_NORMALIZE_IMAGE | CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FILTER_QUADS);
+            bool found2 = findChessboardCorners(image2, board_sz, corners2, CV_CALIB_CB_NORMALIZE_IMAGE | CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FILTER_QUADS);
+
             if(found1 && found2)
             {
-                cornerSubPix(image1, corners1, Size(11, 11), Size(-1, -1), TermCriteria(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 30, 0.1));
-                cornerSubPix(image2, corners2, Size(11, 11), Size(-1, -1), TermCriteria(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 30, 0.1));
                 if (plotCheckerboard)
                 {
                     drawChessboardCorners(image1, board_sz, corners1, found1);
@@ -133,9 +138,12 @@ int main() {
                     imshow("Right Image",image2);
                     waitKey(0);
                 }
+                cornerSubPix(image1, corners1, Size(11, 11), Size(-1, -1), TermCriteria(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 30, 0.1));
+                cornerSubPix(image2, corners2, Size(11, 11), Size(-1, -1), TermCriteria(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 30, 0.1));
                 image_points1.push_back(corners1);
                 image_points2.push_back(corners2);
                 object_points.push_back(obj);
+
             }
         }
         it1++;
@@ -146,10 +154,10 @@ int main() {
     // Calculate calibration
     Mat E = Mat(3, 3, CV_32FC1);
     Mat F = Mat(3, 3, CV_32FC1);
-    Mat R;
-    Mat T;
+    Mat R = Mat::eye(3,3,CV_32FC1);
+    Mat T = (Mat_<double>(3,1) << -2000.0, 0.0, 0.0);
     
-    TermCriteria criteria= TermCriteria(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10000, DBL_EPSILON);
+    TermCriteria criteria= TermCriteria(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 1000, DBL_EPSILON);
     Size imageSize = image1.size();
     double reprojectError = stereoCalibrate(object_points, image_points1, image_points2, intrinsic1, distCoeffs1, intrinsic2, distCoeffs2, imageSize, R, T, E, F, CV_CALIB_FIX_INTRINSIC, criteria);
     
@@ -157,8 +165,7 @@ int main() {
     // RECTIFY
     Mat R1, R2, P1, P2, Q;
     Rect roiRight, roiLeft;
-//    stereoRectify(intrinsic1, distCoeffs1,intrinsic2, distCoeffs2, imageSize, R, T, R1, R2, P1, P2, Q, CALIB_ZERO_DISPARITY, 1, imageSize, &roiLeft, &roiRight);
-    stereoRectify(intrinsic1, distCoeffs1,intrinsic2, distCoeffs2, imageSize, R, T, R1, R2, P1, P2, Q, 0, 1, imageSize, &roiLeft, &roiRight);
+    stereoRectify(intrinsic1, distCoeffs1,intrinsic2, distCoeffs2, imageSize, R, T, R1, R2, P1, P2, Q, CALIB_ZERO_DISPARITY, 1, imageSize, &roiLeft, &roiRight);
     
     Mat rmap[2][2];
     initUndistortRectifyMap(intrinsic1, distCoeffs1, R1, P1, imageSize, CV_16SC2, rmap[0][0], rmap[0][1]);
@@ -190,6 +197,7 @@ int main() {
         iframe++;
     }
     destroyAllWindows();
+    
     // Save intrinsic matrix and distortion coefficients
     string outputFile;
     outputFile = p.string() + "/OpenCVCalibrationResults.yml";

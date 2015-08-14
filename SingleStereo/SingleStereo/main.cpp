@@ -73,12 +73,12 @@ int main( int argc, const char** argv )
     // Save disparity as image and yml
     Mat dispSave;
     disparity.convertTo(dispSave, CV_8U, 255/(112*16.));
-    imwrite("/Users/mike/Desktop/StereoOpenCV/Single_Stereo_Disparity/flea35_2014-12-28-184907-0011.pgm", dispSave);
+    imwrite("/Users/mike/Desktop/flea35_2014-12-28-184907-0011.pgm", dispSave);
     
-    FileStorage fs_disp("/Users/mike/Desktop/StereoOpenCV/Single_Stereo_Disparity/flea35_2014-12-28-184907-0011_disp.yml", FileStorage::WRITE);
+    FileStorage fs_disp("/Users/mike/Desktop/flea35_2014-12-28-184907-0011_disp.yml", FileStorage::WRITE);
     fs_disp << "disparity" << disparity;
     fs_disp.release();
-
+    
     // PROJECT TO 3D
     Mat image3;
     Mat xyz[3];
@@ -88,8 +88,8 @@ int main( int argc, const char** argv )
     Mat zShow, dispShow;
     z.convertTo(zShow, CV_8U, 255/(10000.));
     disparity.convertTo(dispShow, CV_8U, 255/(112*16.));
- 
-    FileStorage fs_xyz("/Users/mike/Desktop/StereoOpenCV/Single_Stereo_Disparity/flea35_2014-12-28-184907-0011_xyz.xml", FileStorage::WRITE);
+    
+    FileStorage fs_xyz("/Users/mike/Desktop/flea35_2014-12-28-184907-0011_xyz.xml", FileStorage::WRITE);
     fs_xyz << "z" << z;
     fs_xyz.release();
     
